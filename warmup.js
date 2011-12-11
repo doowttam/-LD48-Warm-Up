@@ -5,15 +5,35 @@ WARMUP = function() {
 
     var frameInterval = null;
 
-    var on = false;
+    var zoe     = null;
+    var gravity = null;
+    var map     = null;
+
+    var creatures = [];
 
     return {
         init: function(doc, win) {
             canvas  = doc.getElementById("game_canvas");
             context = canvas.getContext("2d");
 
-            frameInterval = this.play();
+            map = WARMUP.map({
+                "canvas": canvas
+            });
 
+            zoe = WARMUP.zoe({
+                "context": context,
+                "canvas":  canvas,
+                "startX":  350,
+                "startY":  40,
+                "size":    10,
+                "map":     map
+            });
+
+            gravity = WARMUP.gravity();
+
+            creatures.push(zoe);
+
+            frameInterval = this.play();
         },
 
         play: function() {
@@ -45,11 +65,9 @@ WARMUP = function() {
         drawFrame: function() {
             this.resetCanvas();
 
-            if ( on ) {
-                context.fillText("Success!", canvas.width - canvas.width / 2, canvas.height - canvas.height / 2);
-            }
+            gravity.pull(creatures);
 
-            on = !on;
+            zoe.draw();
         }
     };
 }();
