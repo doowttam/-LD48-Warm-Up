@@ -17,7 +17,13 @@ WARMUP = function() {
             context = canvas.getContext("2d");
 
             map = WARMUP.map({
-                "canvas": canvas
+                "canvas":  canvas,
+                "context": context,
+                "platforms": [
+                    [ 0, 300, canvas.width, 300 ],
+                    [ 60, 250, 100, 250 ],
+                    [ 340, 260, 375, 260 ]
+                ]
             });
 
             zoe = WARMUP.zoe({
@@ -67,6 +73,7 @@ WARMUP = function() {
 
             gravity.pull(creatures);
 
+            map.draw();
             zoe.draw();
         }
     };
