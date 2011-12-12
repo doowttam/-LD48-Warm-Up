@@ -9,7 +9,6 @@ WARMUP.zoe = function(spec, my) {
 
     my.tick = function() {
         if ( jumping ) {
-            console.info('jumping!');
             if ( jumpStart - my.y < jumpHeight ) {
                 my.y = my.y - jumpSpeed;
             }
@@ -20,6 +19,10 @@ WARMUP.zoe = function(spec, my) {
     };
 
     var jump = function() {
+        if ( jumping ) {
+            return;
+        }
+
         if (!my.map.onPlatform(that)) {
             return;
         }
@@ -36,7 +39,6 @@ WARMUP.zoe = function(spec, my) {
     };
 
     that.movement = function(e) {
-        console.info('movement');
         if ( e.keyCode == 37 ) {
             if ( my.x <= 0 ) {
                 return;
@@ -51,11 +53,11 @@ WARMUP.zoe = function(spec, my) {
 
             my.x = my.x + my.speed;
         }
-        else if ( e.keyCode == 38 || e.charCode == 32) {
-            if ( jumping ) {
-                return;
-            }
+        else if ( e.keyCode == 38 ) {
+            jump(jumpHeight);
+        }
 
+        if (e.ctrlKey) {
             jump(jumpHeight);
         }
     };
