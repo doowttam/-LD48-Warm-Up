@@ -8,6 +8,7 @@ WARMUP = function() {
     var zoe     = null;
     var gravity = null;
     var map     = null;
+    var baddie  = null;
 
     var creatures = [];
 
@@ -33,12 +34,24 @@ WARMUP = function() {
                 "startX":  350,
                 "startY":  40,
                 "size":    10,
-                "map":     map
+                "map":     map,
+                "color":   "black"
+            });
+
+            baddie = WARMUP.baddie({
+                "context": context,
+                "canvas":  canvas,
+                "startX":  120,
+                "startY":  40,
+                "size":    10,
+                "map":     map,
+                "color":   "red"
             });
 
             gravity = WARMUP.gravity();
 
             creatures.push(zoe);
+            creatures.push(baddie);
 
             win.onkeypress = function(e) {
                 zoe.movement(e);
@@ -80,6 +93,7 @@ WARMUP = function() {
 
             map.draw();
             zoe.draw();
+            baddie.draw();
         }
     };
 }();
