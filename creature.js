@@ -2,6 +2,8 @@ WARMUP.creature = function(spec, my) {
     var that = {};
     my = my || {};
 
+    my.speed = 3;
+
     my.size = spec.size;
     my.x    = spec.startX;
     my.y    = spec.startY;
@@ -10,7 +12,11 @@ WARMUP.creature = function(spec, my) {
     my.canvas  = spec.canvas;
     my.map     = spec.map;
 
+    my.tick = function() {};
+
     that.draw = function() {
+        my.tick();
+
         my.context.fillStyle = "black";
         
         var topLeftY = my.y - my.size;

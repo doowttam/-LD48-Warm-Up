@@ -39,6 +39,10 @@ WARMUP = function() {
 
             creatures.push(zoe);
 
+            win.onkeypress = function(e) {
+                zoe.movement(e);
+            };
+
             frameInterval = this.play();
         },
 

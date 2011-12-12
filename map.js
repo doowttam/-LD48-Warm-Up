@@ -29,7 +29,7 @@ WARMUP.map = function(spec, my) {
         for ( var i = 0; i < platforms.length; i++ ) {
             var distance = platforms[i][1] - pos.y;
 
-            if ( distance < distanceToNextPlatform ) {
+            if ( distance >= 0 && distance < distanceToNextPlatform ) {
                 var leftEdge  = platforms[i][0];
                 var rightEdge = platforms[i][2];
 
@@ -37,6 +37,7 @@ WARMUP.map = function(spec, my) {
                      || pos.x + pos.size > leftEdge && pos.x + pos.size < rightEdge // hanging off left side
                      || pos.x <= leftEdge && pos.x + pos.size >= rightEdge // bigger than platform
                    ) {
+
                     nextPlatform           = platforms[i][1];
                     distanceToNextPlatform = distance;
 
