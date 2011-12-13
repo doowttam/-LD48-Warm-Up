@@ -38,6 +38,22 @@ WARMUP.zoe = function(spec, my) {
         return !my.map.onPlatform(that);
     };
 
+    that.hit = function(baddie) {
+        var stompLine = [ my.x + 5, my.x + (my.size - 5) ];
+
+        var baddiePos = baddie.getPos();
+
+        if ( baddiePos.x <= stompLine[0] 
+             && baddiePos.x + baddiePos.size >= stompLine[1]
+             && my.y >= baddiePos.y - baddiePos.size
+             && my.y < baddiePos.y 
+           ) {
+            return true;
+        }
+
+        return false;
+    };
+
     that.movement = function(e) {
         if ( e.keyCode == 37 ) {
             if ( my.x <= 0 ) {

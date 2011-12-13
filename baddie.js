@@ -4,9 +4,34 @@ WARMUP.baddie = function(spec, my) {
 
     var movingLeft = true;
 
+    var fainted = false;
+
     my.speed = 2;
+    
+    var respawn = function() {
+        setTimeout(function() {
+            my.x    = spec.startX;
+            my.y    = spec.startY;
+            my.size = spec.size;
+            fainted = false;
+        }, 1000 );
+    };
+
+    that.faint = function() {
+        fainted = true;
+    };
 
     my.tick = function() {
+        if ( fainted ) {
+            if ( my.size > 0 ) {
+                my.size--;
+                return;
+            }
+            else {
+                respawn();
+            }
+        }
+
         if ( !my.map.onPlatform(that) ) {
             return;
         }

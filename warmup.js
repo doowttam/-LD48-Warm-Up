@@ -33,7 +33,7 @@ WARMUP = function() {
                 "canvas":  canvas,
                 "startX":  350,
                 "startY":  40,
-                "size":    10,
+                "size":    16,
                 "map":     map,
                 "color":   "black"
             });
@@ -43,7 +43,7 @@ WARMUP = function() {
                 "canvas":  canvas,
                 "startX":  120,
                 "startY":  40,
-                "size":    10,
+                "size":    16,
                 "map":     map,
                 "color":   "red"
             });
@@ -90,6 +90,10 @@ WARMUP = function() {
             this.resetCanvas();
 
             gravity.pull(creatures);
+            
+            if ( zoe.hit(baddie) ) {
+                baddie.faint();
+            }
 
             map.draw();
             zoe.draw();
