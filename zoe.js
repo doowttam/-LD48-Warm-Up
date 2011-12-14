@@ -5,7 +5,7 @@ WARMUP.zoe = function(spec, my) {
     var jumpStart  = 0;
     var jumpHeight = 50;
     var jumping    = false;
-    var jumpSpeed  = 5;
+    var jumpSpeed  = 2;
 
     my.tick = function() {
         if ( jumping ) {
@@ -16,6 +16,7 @@ WARMUP.zoe = function(spec, my) {
                 jumping = false;
             }
         }
+        move();
     };
 
     var jump = function() {
@@ -29,6 +30,26 @@ WARMUP.zoe = function(spec, my) {
 
         jumping   = true;
         jumpStart = my.y;
+    };
+
+    var move = function() {
+        if ( WARMUP.key.isDown(WARMUP.key.codes.LEFT) ) {
+            if ( my.x <= 0 ) {
+                return;
+            }
+
+            my.x = my.x - my.speed;
+        }
+        if ( WARMUP.key.isDown(WARMUP.key.codes.RIGHT) ) {
+            if ( my.x + my.size >= my.canvas.width ) {
+                return;
+            }
+
+            my.x = my.x + my.speed;
+        }
+        if ( WARMUP.key.isDown(WARMUP.key.codes.UP) ) {
+            jump(jumpHeight);
+        }
     };
 
     that.canFall = function() {
@@ -54,29 +75,6 @@ WARMUP.zoe = function(spec, my) {
         return false;
     };
 
-    that.movement = function(e) {
-        if ( e.keyCode == 37 ) {
-            if ( my.x <= 0 ) {
-                return;
-            }
-
-            my.x = my.x - my.speed;
-        }
-        else if ( e.keyCode == 39 ) {
-            if ( my.x + my.size >= my.canvas.width ) {
-                return;
-            }
-
-            my.x = my.x + my.speed;
-        }
-        else if ( e.keyCode == 38 ) {
-            jump(jumpHeight);
-        }
-
-        if (e.ctrlKey) {
-            jump(jumpHeight);
-        }
-    };
 
     return that;
 };

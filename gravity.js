@@ -2,7 +2,7 @@ WARMUP.gravity = function(spec, my) {
     var that = {};
     my = my || {};
 
-    var rate = 3;
+    var rate = 2;
 
     var drop = function(item) {
         if ( item.canFall() ) {

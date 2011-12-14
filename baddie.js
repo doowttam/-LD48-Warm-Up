@@ -6,7 +6,7 @@ WARMUP.baddie = function(spec, my) {
 
     var fainted = false;
 
-    my.speed = 2;
+    my.speed = 1;
     
     var respawn = function() {
         setTimeout(function() {

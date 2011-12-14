@@ -53,8 +53,11 @@ WARMUP = function() {
             creatures.push(zoe);
             creatures.push(baddie);
 
-            win.onkeypress = function(e) {
-                zoe.movement(e);
+            win.onkeyup = function(e) {
+                WARMUP.key.onKeyUp(e);
+            };
+            win.onkeydown = function(e) {
+                WARMUP.key.onKeyDown(e);
             };
 
             frameInterval = this.play();
@@ -63,7 +66,7 @@ WARMUP = function() {
         play: function() {
             return setInterval( function() {
                 WARMUP.drawFrame();
-            }, 50 );
+            }, 20 );
         },
 
         pause: function() {
@@ -90,14 +93,14 @@ WARMUP = function() {
             this.resetCanvas();
 
             gravity.pull(creatures);
-            
-            if ( zoe.hit(baddie) ) {
-                baddie.faint();
-            }
 
             map.draw();
             zoe.draw();
             baddie.draw();
+            
+            if ( zoe.hit(baddie) ) {
+                baddie.faint();
+            }
         }
     };
 }();

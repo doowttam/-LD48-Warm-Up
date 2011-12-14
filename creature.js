@@ -2,7 +2,7 @@ WARMUP.creature = function(spec, my) {
     var that = {};
     my = my || {};
 
-    my.speed = 3;
+    my.speed = 1;
 
     my.size = spec.size;
     my.x    = spec.startX;
