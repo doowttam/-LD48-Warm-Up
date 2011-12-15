@@ -2,10 +2,16 @@ WARMUP.zoe = function(spec, my) {
     my = my || {};
     var that = WARMUP.creature(spec, my);
 
+    var img = new Image();
+    img.src = "sprite.png";
+
     var jumpStart  = 0;
     var jumpHeight = 50;
     var jumping    = false;
     var jumpSpeed  = 2;
+    var moving     = false;
+
+    var frame = 1;
 
     my.tick = function() {
         if ( jumping ) {
@@ -16,7 +22,15 @@ WARMUP.zoe = function(spec, my) {
                 jumping = false;
             }
         }
+
         move();
+
+        if ( frame <= 9 ) {
+            frame++;
+        }
+        else {
+            frame = 1;
+        }
     };
 
     var jump = function() {
@@ -33,19 +47,19 @@ WARMUP.zoe = function(spec, my) {
     };
 
     var move = function() {
-        if ( WARMUP.key.isDown(WARMUP.key.codes.LEFT) ) {
-            if ( my.x <= 0 ) {
-                return;
-            }
+        moving = false;
 
-            my.x = my.x - my.speed;
+        if ( WARMUP.key.isDown(WARMUP.key.codes.LEFT) ) {
+            if ( my.x > 0 ) {
+                my.x   = my.x - my.speed;
+                moving = true;
+            }
         }
         if ( WARMUP.key.isDown(WARMUP.key.codes.RIGHT) ) {
-            if ( my.x + my.size >= my.canvas.width ) {
-                return;
+            if ( my.x + my.size < my.canvas.width ) {
+                my.x   = my.x + my.speed;
+                moving = true;
             }
-
-            my.x = my.x + my.speed;
         }
         if ( WARMUP.key.isDown(WARMUP.key.codes.UP) ) {
             jump(jumpHeight);
@@ -75,6 +89,18 @@ WARMUP.zoe = function(spec, my) {
         return false;
     };
 
+    that.draw = function() {
+        my.tick();
+
+        var topLeftY = my.y - my.size;
+
+        if ( frame <= 5 || moving == false ) {
+            my.context.drawImage( img, 0, 0, 16, 16, my.x, topLeftY, 16, 16 );
+        }
+        else {
+            my.context.drawImage( img, 16, 0, 16, 16, my.x, topLeftY, 16, 16 );
+        }
+    };
 
     return that;
 };
