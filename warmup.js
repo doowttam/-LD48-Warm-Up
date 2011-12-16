@@ -19,6 +19,17 @@ WARMUP = function() {
         var images = [ 'sprite.png' ];
         var audios = [ 'jump.wav', 'squash.wav' ];
 
+        var finished = false;
+
+        // Just in case things take too long
+        setTimeout( function() {
+            if ( !finished ) {
+                playCallback();
+            }
+
+            finished = true;
+        }, 4000 );
+
         var resourceOnLoad = function(type) {
             if ( type == 'image' ) {
                 imageCount++;
@@ -28,7 +39,11 @@ WARMUP = function() {
             }
 
             if ( imageCount == images.length && audioCount == audios.length ) {
-                playCallback();
+                if ( !finished ) {
+                    playCallback();
+                }
+
+                finished = true;
             }
         };
 
