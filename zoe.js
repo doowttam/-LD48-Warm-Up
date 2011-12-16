@@ -39,6 +39,8 @@ WARMUP.zoe = function(spec, my) {
             return;
         }
 
+        WARMUP.resource['jump.wav'].play();
+
         jumping   = true;
         jumpStart = my.y;
     };

@@ -18,6 +18,7 @@ WARMUP.baddie = function(spec, my) {
     };
 
     that.faint = function() {
+        WARMUP.resource['squash.wav'].play();
         fainted = true;
     };
 

@@ -17,9 +17,11 @@ WARMUP = function() {
         var audioCount = 0;
 
         var images = [ 'sprite.png' ];
-        var audios = [];
+        var audios = [ 'jump.wav', 'squash.wav' ];
 
         var resourceOnLoad = function(type) {
+            console.info(type);
+
             if ( type == 'image' ) {
                 imageCount++;
             }
@@ -39,6 +41,12 @@ WARMUP = function() {
             WARMUP.resource[images[i]] = img;
         }
 
+        for ( var i = 0; i < audios.length; i++ ) {
+            var sound          = new Audio();
+            sound.src          = audios[i];
+            sound.onloadeddata = function() { resourceOnLoad('audio'); };
+            WARMUP.resource[audios[i]] = sound;
+        }
     }
 
     return {
