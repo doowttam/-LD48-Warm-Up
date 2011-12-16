@@ -17,7 +17,7 @@ WARMUP = function() {
         var audioCount = 0;
 
         var images = [ 'sprite.png' ];
-        var audios = [ 'jump.wav', 'squash.wav' ];
+        var audios = [ 'jump.wav', 'squash.wav', 'bg.wav' ];
 
         var finished = false;
 
@@ -110,12 +110,19 @@ WARMUP = function() {
                 WARMUP.key.onKeyDown(e);
             };
 
+            doc.getElementById("pause").onclick = WARMUP.pause;
+
             loadResources(function() {
                 frameInterval = WARMUP.play();
             });
         },
 
         play: function() {
+            this.resource['bg.wav'].addEventListener('ended', function() {
+                WARMUP.resource['bg.wav'].play();
+            });
+            WARMUP.resource['bg.wav'].play();
+
             return setInterval( function() {
                 WARMUP.drawFrame();
             }, 20 );
@@ -123,17 +130,19 @@ WARMUP = function() {
 
         pause: function() {
             if ( frameInterval ) {
+                WARMUP.resource['bg.wav'].pause();
 
                 clearInterval( frameInterval );
-                clearInterval = null;
+                frameInterval = null;
 
+                context.fillStyle = 'black';
                 context.font = "bold 12px sans-serif";
                 context.textAlign = "right";
                 context.textBaseline = "top";
                 context.fillText("PAUSED", canvas.width - 20, 20);
             }
             else {
-                frameInterval = this.play();
+                frameInterval = WARMUP.play();
             }
         },
 
