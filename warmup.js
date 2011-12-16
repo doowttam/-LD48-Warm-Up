@@ -12,6 +12,35 @@ WARMUP = function() {
 
     var creatures = [];
 
+    var loadResources = function( playCallback ) {
+        var imageCount = 0;
+        var audioCount = 0;
+
+        var images = [ 'sprite.png' ];
+        var audios = [];
+
+        var resourceOnLoad = function(type) {
+            if ( type == 'image' ) {
+                imageCount++;
+            }
+            if ( type == 'audio' ) {
+                audioCount++;
+            }
+
+            if ( imageCount == images.length && audioCount == audios.length ) {
+                playCallback();
+            }
+        };
+
+        for ( var i = 0; i < images.length; i++ ) {
+            var img    = new Image();
+            img.src    = images[i];
+            img.onload = function() { resourceOnLoad('image'); };
+            WARMUP.resource[images[i]] = img;
+        }
+
+    }
+
     return {
         init: function(doc, win) {
             canvas  = doc.getElementById("game_canvas");
@@ -60,7 +89,9 @@ WARMUP = function() {
                 WARMUP.key.onKeyDown(e);
             };
 
-            frameInterval = this.play();
+            loadResources(function() {
+                frameInterval = WARMUP.play();
+            });
         },
 
         play: function() {
@@ -101,6 +132,8 @@ WARMUP = function() {
             if ( zoe.hit(baddie) ) {
                 baddie.faint();
             }
-        }
+        },
+
+        resource: {}
     };
 }();

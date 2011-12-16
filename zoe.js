@@ -2,9 +2,6 @@ WARMUP.zoe = function(spec, my) {
     my = my || {};
     var that = WARMUP.creature(spec, my);
 
-    var img = new Image();
-    img.src = "sprite.png";
-
     var jumpStart  = 0;
     var jumpHeight = 50;
     var jumping    = false;
@@ -95,10 +92,10 @@ WARMUP.zoe = function(spec, my) {
         var topLeftY = my.y - my.size;
 
         if ( frame <= 5 || moving == false ) {
-            my.context.drawImage( img, 0, 0, 16, 16, my.x, topLeftY, 16, 16 );
+            my.context.drawImage( WARMUP.resource['sprite.png'], 0, 0, 16, 16, my.x, topLeftY, 16, 16 );
         }
         else {
-            my.context.drawImage( img, 16, 0, 16, 16, my.x, topLeftY, 16, 16 );
+            my.context.drawImage( WARMUP.resource['sprite.png'], 16, 0, 16, 16, my.x, topLeftY, 16, 16 );
         }
     };
 
