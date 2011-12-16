@@ -17,7 +17,7 @@ WARMUP = function() {
         var audioCount = 0;
 
         var images = [ 'sprite.png' ];
-        var audios = [ 'jump.wav', 'squash.wav', 'bg.wav' ];
+        var audios = [ 'jump.wav', 'squash.wav', 'bg.ogg' ];
 
         var finished = false;
 
@@ -118,10 +118,10 @@ WARMUP = function() {
         },
 
         play: function() {
-            this.resource['bg.wav'].addEventListener('ended', function() {
-                WARMUP.resource['bg.wav'].play();
+            this.resource['bg.ogg'].addEventListener('ended', function() {
+                WARMUP.resource['bg.ogg'].play();
             });
-            WARMUP.resource['bg.wav'].play();
+            WARMUP.resource['bg.ogg'].play();
 
             return setInterval( function() {
                 WARMUP.drawFrame();
@@ -130,7 +130,7 @@ WARMUP = function() {
 
         pause: function() {
             if ( frameInterval ) {
-                WARMUP.resource['bg.wav'].pause();
+                WARMUP.resource['bg.ogg'].pause();
 
                 clearInterval( frameInterval );
                 frameInterval = null;
