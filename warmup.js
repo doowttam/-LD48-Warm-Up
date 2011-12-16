@@ -20,8 +20,6 @@ WARMUP = function() {
         var audios = [ 'jump.wav', 'squash.wav' ];
 
         var resourceOnLoad = function(type) {
-            console.info(type);
-
             if ( type == 'image' ) {
                 imageCount++;
             }
