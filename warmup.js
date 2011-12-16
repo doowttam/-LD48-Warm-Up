@@ -38,6 +38,8 @@ WARMUP = function() {
                 audioCount++;
             }
 
+            WARMUP.loading( imageCount + audioCount, images.length + audios.length );
+
             if ( imageCount == images.length && audioCount == audios.length ) {
                 if ( !finished ) {
                     playCallback();
@@ -164,6 +166,18 @@ WARMUP = function() {
             }
         },
 
-        resource: {}
+        resource: {},
+
+        loading: function(cur, total) {
+            this.resetCanvas();
+
+            var msg = "Loading (" + cur + "/" + total + ")...";
+
+            context.font = "bold 12px sans-serif";
+
+            context.textAlign = "center";
+            context.textBaseline = "middle";
+            context.fillText(msg, canvas.width - canvas.width / 2, canvas.height - canvas.height / 2);
+        }
     };
 }();
