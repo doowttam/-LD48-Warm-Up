@@ -48,16 +48,16 @@ WARMUP = function() {
         };
 
         for ( var i = 0; i < images.length; i++ ) {
-            var img    = new Image();
-            img.src    = images[i];
-            img.onload = function() { resourceOnLoad('image'); };
+            var img = new Image();
+            img.src = images[i];
+            img.addEventListener('load', function() { resourceOnLoad('image'); } );
             WARMUP.resource[images[i]] = img;
         }
 
         for ( var i = 0; i < audios.length; i++ ) {
-            var sound          = new Audio();
-            sound.src          = audios[i];
-            sound.onloadeddata = function() { resourceOnLoad('audio'); };
+            var sound = new Audio();
+            sound.src = audios[i];
+            sound.addEventListener('canplaythrough', function() { resourceOnLoad('audio'); } );
             WARMUP.resource[audios[i]] = sound;
         }
     }
